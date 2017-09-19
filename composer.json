@@ -1,0 +1,28 @@
+{
+
+    "name": "dot/roles",
+
+    "description": "The roles module of dot/cms",
+
+    "keywords": ["dotcms", "framework", "laravel", "cms", "modules", "plugins"],
+
+    "license": "MIT",
+
+    "type": "package",
+
+    "require": {
+        "dot/platform": "*"
+    },
+
+    "autoload": {
+        "psr-4": {
+            "Dot\\Roles\\": "src"
+        }
+    },
+
+    "config": {
+        "preferred-install": "dist"
+    },
+
+    "minimum-stability" : "dev"
+}
