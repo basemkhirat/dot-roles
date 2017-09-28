@@ -1,5 +1,12 @@
 <?php
 
+namespace Dot\Roles;
+
+use Plugin;
+use Navigation;
+use URL;
+use Auth;
+
 class RolesPlugin extends Plugin
 {
 

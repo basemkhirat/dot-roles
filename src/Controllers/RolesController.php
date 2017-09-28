@@ -2,10 +2,13 @@
 
 namespace Dot\Roles\Controllers;
 
+use Auth;
 use Request;
 use View;
 use Action;
 use Redirect;
+use Module;
+use Plugin;
 use Dot\Roles\Models\Role;
 use Dot\Controller;
 

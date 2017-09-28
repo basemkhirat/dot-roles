@@ -1,8 +1,5 @@
 <?php
 
-namespace Dot\Roles\Migrations;
-
-use Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
