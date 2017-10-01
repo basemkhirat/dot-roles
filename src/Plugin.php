@@ -2,12 +2,11 @@
 
 namespace Dot\Roles;
 
-use Plugin;
+use Auth;
 use Navigation;
 use URL;
-use Auth;
 
-class RolesPlugin extends Plugin
+class Plugin extends \Dot\Platform\Plugin
 {
 
     /**

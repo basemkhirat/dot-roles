@@ -2,15 +2,15 @@
 
 namespace Dot\Roles\Controllers;
 
+use Action;
 use Auth;
+use Dot\Platform\Controller;
+use Dot\Platform\Plugin;
+use Dot\Roles\Models\Role;
+use Module;
+use Redirect;
 use Request;
 use View;
-use Action;
-use Redirect;
-use Module;
-use Plugin;
-use Dot\Roles\Models\Role;
-use Dot\Controller;
 
 class RolesController extends Controller
 {
@@ -21,7 +21,7 @@ class RolesController extends Controller
     public function __construct()
     {
         parent::__construct();
-        $this->middleware(function($request, $next){
+        $this->middleware(function ($request, $next) {
             return Auth::user()->hasRole("superadmin") ? $next($request) : Dot::forbidden();
         });
     }
@@ -82,7 +82,7 @@ class RolesController extends Controller
         }
 
         $this->data["role"] = false;
-        $this->data["modules"] = array_merge(Module::installed(), Plugin::installed());
+        $this->data["plugins"] = Plugin::all();
         return View::make("roles::edit", $this->data);
     }
 
@@ -115,7 +115,7 @@ class RolesController extends Controller
         $this->data["role"] = $role;
         $this->data["role_permissions"] = $role->permissions->pluck("permission")->toArray();
 
-        $this->data["modules"] = array_merge(Module::installed(), Plugin::installed());
+        $this->data["plugins"] = Plugin::all();
 
         return View::make("roles::edit", $this->data);
     }

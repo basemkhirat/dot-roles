@@ -2,11 +2,11 @@
 
 namespace Dot\Roles\Models;
 
+use Dot\Platform\Model;
 use Request;
-use Dot\Model;
-use Dot\Roles\Models\RolePermission;
 
-class Role extends Model {
+class Role extends Model
+{
 
     protected $module = "roles";
 
@@ -42,7 +42,8 @@ class Role extends Model {
         }
     }
 
-    public function scopeSuperAdmin($query){
+    public function scopeSuperAdmin($query)
+    {
         $query->where("name", "superadmin");
     }
 

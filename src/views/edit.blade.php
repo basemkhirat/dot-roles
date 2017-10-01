@@ -55,32 +55,31 @@
                                        placeholder="<?php echo trans("roles::roles.name"); ?>"/>
                             </div>
 
-                            <?php foreach ($modules as $module) {
-                            $permissions = $module->permissions;
-                            ?>
+                            <?php foreach ($plugins as $plugin) { ?>
 
-                            <?php if (count($permissions)) { ?>
+                            <?php if (count($plugin->permissions)) { ?>
+
                             <div class="panel panel-default ">
 
                                 <div class="panel-heading">
                                     <a class="accordion-toggle text-navy" data-toggle="collapse"
-                                       href="#collapse-<?php echo $module->path; ?>">
-                                        <strong><?php echo ucfirst($module->name); ?></strong>
+                                       href="#collapse-<?php echo $plugin->key; ?>">
+                                        <strong><?php echo ucfirst($plugin->name); ?></strong>
                                     </a>
                                 </div>
 
-                                <div id="collapse-<?php echo $module->path; ?>" class="panel-collapse in">
+                                <div id="collapse-<?php echo $plugin->key; ?>" class="panel-collapse in">
                                     <div class="panel-body">
-                                        <?php foreach ($permissions as $slug) { ?>
+                                        <?php foreach ($plugin->permissions as $slug) { ?>
                                         <label class="checkbox">
                                             <input
-                                                <?php if ($role and in_array($module->path . "." . $slug, $role_permissions)) { ?> checked="checked"
+                                                <?php if ($role and in_array($plugin->key . "." . $slug, $role_permissions)) { ?> checked="checked"
                                                 <?php } ?>
                                                 type="checkbox" name="permissions[]"
-                                                value="<?php echo $module->path . "." . $slug; ?>"
+                                                value="<?php echo $plugin->key . "." . $slug; ?>"
                                                 class="switcher permission-switcher switcher-sm">
                                             <span style="margin: 0 10px 10px;">
-                                                <?php echo ucfirst(trans($module->path . "::" . $module->path . ".permissions." . $slug)); ?>
+                                                <?php echo ucfirst(trans($plugin->key . "::" . $plugin->key . ".permissions." . $slug)); ?>
                                             </span>
                                         </label>
                                         <?php } ?>

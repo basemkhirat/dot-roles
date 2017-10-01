@@ -2,7 +2,7 @@
 
 namespace Dot\Roles\Models;
 
-use Dot\Model;
+use Dot\Platform\Model;
 
 class RolePermission extends Model {
 
