@@ -5,7 +5,7 @@ namespace Dot\Roles\Controllers;
 use Action;
 use Auth;
 use Dot\Platform\Controller;
-use Dot\Platform\Plugin;
+use Dot\Platform\Facades\Plugin;
 use Dot\Roles\Models\Role;
 use Module;
 use Redirect;
