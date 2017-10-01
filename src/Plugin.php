@@ -9,19 +9,6 @@ use URL;
 class Plugin extends \Dot\Platform\Plugin
 {
 
-    /**
-     * @return array
-     */
-    function info()
-    {
-
-        return [
-            "name" => "roles",
-            "version" => "1.0",
-        ];
-
-    }
-
     function boot()
     {
 
