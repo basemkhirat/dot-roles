@@ -9,6 +9,11 @@ use URL;
 class Roles extends \Dot\Platform\Plugin
 {
 
+    protected $route_middlewares = [
+        'role' => \Dot\Roles\Middlewares\RoleMiddleware::class,
+        'permission' => \Dot\Roles\Middlewares\PermissionMiddleware::class
+    ];
+
     function boot()
     {
 
