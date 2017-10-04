@@ -19,10 +19,18 @@ class Roles extends \Dot\Platform\Plugin
 
         parent::boot();
 
+        // Roles for superadmins only
+
+        $this->gate->define("roles.manage", function($user){
+            return $user->hasRole("superadmin");
+        });
+
         Navigation::menu("sidebar", function ($menu) {
+
             if (Auth::user()->hasRole('superadmin')) {
-                $menu->item('users.permissions', trans("admin::common.permissions"), URL::to(ADMIN . '/roles'));
+                $menu->item('permissions', trans("admin::common.permissions"), URL::to(ADMIN . '/roles'))->icon("fa-unlock-alt")->order(17);
             }
+
         });
     }
 }

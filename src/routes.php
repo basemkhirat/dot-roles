@@ -2,7 +2,7 @@
 
 Route::group(array(
     "prefix" => ADMIN,
-    "middleware" => ["web", "auth"],
+    "middleware" => ["web", "auth", "can:roles.manage"],
         ), function($route) {
     $route->group(array("prefix" => "roles"), function($route) {
         $route->any('/', array("as" => "admin.roles.show", "uses" => "Dot\Roles\Controllers\RolesController@index"));

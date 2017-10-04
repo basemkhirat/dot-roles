@@ -6,23 +6,23 @@
         <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
             <h2>
                 <i class="fa fa-unlock-alt" aria-hidden="true"></i>
-                <?php echo trans("roles::roles.roles") ?>
+                {{ trans("roles::roles.roles") }}
             </h2>
             <ol class="breadcrumb">
                 <li>
-                    <a href="<?php echo route("admin"); ?>"><?php echo trans("admin::common.admin") ?></a>
+                    <a href="{{ route("admin") }}">{{ trans("admin::common.admin") }}</a>
                 </li>
                 <li>
-                    <a href="<?php echo route("admin.roles.show"); ?>"><?php echo trans("roles::roles.roles") ?>
-                        (<?php echo $roles->total() ?>)</a>
+                    <a href="{{ route("admin.roles.show") }}">{{ trans("roles::roles.roles") }}
+                        ({{ $roles->total() }})</a>
                 </li>
             </ol>
         </div>
         <div class="col-lg-8 col-md-6 col-sm-6 col-xs-12 text-right">
-            <?php if (Gate::allows("users.create")) { ?>
-            <a href="<?php echo route("admin.roles.create"); ?>" class="btn btn-primary btn-labeled btn-main"> <span
-                    class="btn-label icon fa fa-plus"></span> <?php echo trans("roles::roles.add_new"); ?></a>
-            <?php } ?>
+
+                <a href="{{ route("admin.roles.create") }}" class="btn btn-primary btn-labeled btn-main"> <span
+                            class="btn-label icon fa fa-plus"></span> {{ trans("roles::roles.add_new") }}</a>
+
         </div>
     </div>
 
@@ -30,7 +30,7 @@
 
         @include("admin::partials.messages")
 
-        <input type="hidden" name="per_page" value="<?php echo Request::get('per_page') ?>"/>
+        <input type="hidden" name="per_page" value="{{ Request::get('per_page') }}"/>
 
         <form action="" method="post" class="action_form">
             <div class="row">
@@ -41,110 +41,135 @@
                 <div class="col-lg-4">
                     <form action="" method="get" class="search_form">
                         <div class="input-group">
-                            <input name="q" value="<?php echo Request::get("q"); ?>" type="text" class=" form-control"
-                                   placeholder="<?php echo trans("roles::roles.search_roles") ?> ...">
+                            <input name="q" value="{{ Request::get("q") }}" type="text" class=" form-control"
+                                   placeholder="{{ trans("roles::roles.search_roles") }} ...">
                             <span class="input-group-btn">
                             <button class="btn btn-primary" type="submit"><i class="fa fa-search"></i></button>
                         </span>
                         </div>
                     </form>
                 </div>
+
             </div>
         </form>
 
-        <input type="hidden" name="_token" value="<?php echo csrf_token(); ?>"/>
+        <input type="hidden" name="_token" value="{{ csrf_token() }}"/>
+
         <div class="ibox float-e-margins">
+
             <div class="ibox-title">
-                <h5> <?php echo trans("roles::roles.roles") ?> </h5>
+                <h5> {{ trans("roles::roles.roles") }} </h5>
             </div>
+
             <div class="ibox-content">
 
-                <?php if (count($roles)) { ?>
+                @if(count($roles))
 
-                <div class="row">
+                    <div class="row">
 
-                    <div class="col-lg-3 col-md-4 col-sm-12 col-xs-12 action-box">
-                        <select name="action" class="form-control pull-left">
-                            <option value="-1"
-                                    selected="selected"><?php echo trans("roles::roles.bulk_actions"); ?></option>
-                            <option value="delete"><?php echo trans("roles::roles.delete"); ?></option>
-                        </select>
-                        <button type="submit"
-                                class="btn btn-primary pull-right"><?php echo trans("roles::roles.apply"); ?></button>
+                        <div class="col-lg-3 col-md-4 col-sm-12 col-xs-12 action-box">
+                            <select name="action" class="form-control pull-left">
+                                <option value="-1"
+                                        selected="selected">{{ trans("roles::roles.bulk_actions") }}
+                                </option>
+                                <option value="delete">{{ trans("roles::roles.delete") }}</option>
+                            </select>
+                            <button type="submit"
+                                    class="btn btn-primary pull-right">{{ trans("roles::roles.apply") }}
+                            </button>
+                        </div>
+
+                        <div class="col-lg-6 col-md-4 hidden-sm hidden-xs"></div>
+
+                        <div class="col-lg-3 col-md-4 col-sm-12 col-xs-12">
+
+                            <select class="form-control chosen-select chosen-rtl per_page_filter">
+
+                                <option value="" selected="selected">
+                                    -- {{ trans("roles::roles.per_page") }} --
+                                </option>
+
+                                @foreach (array(10, 20, 30, 40) as $num)
+
+                                    <option value="{{ $num }}" @if ($num == $per_page) selected="selected" @endif>{{ $num }}
+                                    </option>
+
+                                @endforeach
+                            </select>
+
+                        </div>
+                    </div>
+                    <div class="table-responsive">
+                        <table cellpadding="0" cellspacing="0" border="0" class="table table-striped table-hover">
+
+                            <thead>
+
+                            <tr>
+                                <th style="width:35px"><input type="checkbox" class="check_all i-checks" name="ids[]"/>
+                                </th>
+                                <th>{{ trans("roles::roles.name") }}</th>
+                                <th>{{ trans("roles::roles.actions") }}</th>
+                            </tr>
+
+                            </thead>
+
+                            <tbody>
+
+                            @foreach ($roles as $role)
+
+                                <tr>
+
+                                    <td>
+                                        <input type="checkbox" class="i-checks" name="id[]"
+                                               value="{{ $role->id }}"/>
+                                    </td>
+
+                                    <td>
+                                        <a class="text-navy"
+                                           href="{{ URL::to(ADMIN) }}/roles/{{ $role->id }}/edit">
+                                            <strong> {{ $role->name }}</strong>
+                                        </a>
+                                    </td>
+
+                                    <td class="center">
+
+                                        <a href="{{ URL::to(ADMIN) }}/roles/{{ $role->id }}/edit">
+                                            <i class="fa fa-pencil text-navy"></i>
+                                        </a>
+
+                                        <a class="ask" message="{{ trans("roles::roles.sure_delete") }}"
+                                           href="{{ URL::to(ADMIN) }}/roles/delete}}id[]={{ $role->id }}">
+                                            <i class="fa fa-times text-navy"></i>
+                                        </a>
+
+                                    </td>
+                                </tr>
+
+                            @endforeach
+
+                            </tbody>
+                        </table>
+
                     </div>
 
-                    <div class="col-lg-6 col-md-4 hidden-sm hidden-xs"></div>
-
-                    <div class="col-lg-3 col-md-4 col-sm-12 col-xs-12">
-
-                        <select class="form-control chosen-select chosen-rtl per_page_filter">
-                            <option value="" selected="selected">
-                                -- <?php echo trans("roles::roles.per_page"); ?> --
-                            </option>
-                            <?php foreach (array(10, 20, 30, 40) as $num) { ?>
-                            <option
-                                value="<?php echo $num; ?>"
-                                <?php if ($num == $per_page) { ?> selected="selected" <?php } ?>><?php echo $num; ?></option>
-                            <?php } ?>
-                        </select>
-
-                    </div>
-                </div>
-                <div class="table-responsive">
-                    <table cellpadding="0" cellspacing="0" border="0" class="table table-striped table-hover"
-                           id="jq-datatables-example">
-                        <thead>
-                        <tr>
-                            <th style="width:35px"><input type="checkbox" class="check_all i-checks" name="ids[]"/>
-                            </th>
-                            <th><?php echo trans("roles::roles.name"); ?></th>
-                            <th><?php echo trans("roles::roles.actions"); ?></th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <?php foreach ($roles as $role) { ?>
-                        <tr>
-                            <td>
-                                <input type="checkbox" class="i-checks" name="id[]"
-                                       value="<?php echo $role->id; ?>"/>
-                            </td>
-                            <td>
-                                <a class="text-navy"
-                                   href="<?php echo URL::to(ADMIN) ?>/roles/<?php echo $role->id; ?>/edit">
-                                    <strong> <?php echo $role->name; ?></strong>
-                                </a>
-                            </td>
-                            <td class="center">
-                                <a href="<?php echo URL::to(ADMIN) ?>/roles/<?php echo $role->id; ?>/edit">
-                                    <i class="fa fa-pencil text-navy"></i>
-                                </a>
-                                <a class="ask" message="<?php echo trans("roles::roles.sure_delete"); ?>"
-                                   href="<?php echo URL::to(ADMIN) ?>/roles/delete?id[]=<?php echo $role->id; ?>">
-                                    <i class="fa fa-times text-navy"></i>
-                                </a>
-                            </td>
-                        </tr>
-                        <?php } ?>
-
-                        </tbody>
-                    </table>
-
-                </div>
-                <div class="row">
-                    <div class="col-lg-12 text-center">
-                        <?php echo trans("roles::roles.page"); ?>
-                        <?php echo $roles->currentPage() ?>
-                        <?php echo trans("roles::roles.of") ?>
-                        <?php echo $roles->lastPage() ?>
-                    </div>
-                    <div class="col-lg-12 text-center">
-                        <?php $roles->appends(Request::all())->render(); ?>
+                    <div class="row">
+                        <div class="col-lg-12 text-center">
+                            {{ trans("roles::roles.page") }}
+                            {{ $roles->currentPage() }}
+                            {{ trans("roles::roles.of") }}
+                            {{ $roles->lastPage() }}
+                        </div>
+                        <div class="col-lg-12 text-center">
+                            {{ $roles->appends(Request::all())->render() }}
+                        </div>
                     </div>
 
-                </div>
-                <?php } else { ?>
-                <?php echo trans("roles::roles.no_records"); ?>
-            <?php } ?>
+                @else
+
+                    {{ trans("roles::roles.no_records") }}
+
+                @endif
+
             </div>
         </div>
 
@@ -179,7 +204,7 @@
             $(".per_page_filter").change(function () {
                 var base = $(this);
                 var per_page = base.val();
-                location.href = "<?php echo route("admin.roles.show") ?>?per_page=" + per_page;
+                location.href = "{{ route("admin.roles.show") }}?per_page=" + per_page;
             });
 
         });

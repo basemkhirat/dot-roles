@@ -4,6 +4,7 @@ namespace Dot\Roles\Middlewares;
 
 use Closure;
 use Gate;
+use Dot\Platform\Facades\Dot;
 
 class PermissionMiddleware
 {
@@ -20,6 +21,7 @@ class PermissionMiddleware
     {
 
         if (!Gate::allows($permission)) {
+
             if ($request->is(API . "/*")) {
 
                 return $next($request);
@@ -30,10 +32,8 @@ class PermissionMiddleware
             } else {
                 Dot::forbidden();
             }
-
         }
 
         return $next($request);
-
     }
 }

@@ -5,30 +5,60 @@ namespace Dot\Roles\Models;
 use Dot\Platform\Model;
 use Request;
 
+/**
+ * Class Role
+ * @package Dot\Roles\Models
+ */
 class Role extends Model
 {
 
-    protected $module = "roles";
-
+    /**
+     * @var string
+     */
     protected $table = 'roles';
+
+    /**
+     * @var string
+     */
     protected $primaryKey = 'id';
+
+    /**
+     * @var bool
+     */
     public $timestamps = false;
 
+    /**
+     * @var array
+     */
     protected $searchable = ["name"];
 
+    /**
+     * @var array
+     */
     protected $creatingRules = [
         "name" => "required|unique:roles"
     ];
 
+    /**
+     * @var array
+     */
     protected $updatingRules = [
         "name" => "required|unique:roles,name,[id],id"
     ];
 
+    /**
+     * Permissions relation
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
     public function permissions()
     {
         return $this->hasMany(RolePermission::class, 'role_id', 'id');
     }
 
+
+    /**
+     * Save role permissions
+     */
     public function savePermissions()
     {
         RolePermission::where("role_id", $this->id)->delete();
@@ -42,6 +72,10 @@ class Role extends Model
         }
     }
 
+    /**
+     * Check if superadmin
+     * @param $query
+     */
     public function scopeSuperAdmin($query)
     {
         $query->where("name", "superadmin");

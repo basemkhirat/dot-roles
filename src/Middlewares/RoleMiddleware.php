@@ -1,6 +1,6 @@
 <?php
 
-namespace Dot\Roles\Middlewares;
+namespace Dot\Roless\Middlewares;
 
 use Closure;
 

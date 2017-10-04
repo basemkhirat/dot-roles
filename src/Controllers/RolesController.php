@@ -12,20 +12,24 @@ use Redirect;
 use Request;
 use View;
 
+/**
+ * Class RolesController
+ * @package Dot\Roles\Controllers
+ */
 class RolesController extends Controller
 {
 
-    public $data = array();
+    /**
+     * View payload
+     * @var array
+     */
+    public $data = [];
 
 
-    public function __construct()
-    {
-        parent::__construct();
-        $this->middleware(function ($request, $next) {
-            return Auth::user()->hasRole("superadmin") ? $next($request) : Dot::forbidden();
-        });
-    }
-
+    /**
+     * Show all Roles
+     * @return mixed
+     */
     public function index()
     {
 
@@ -55,6 +59,10 @@ class RolesController extends Controller
         return View::make("roles::show", $this->data);
     }
 
+    /**
+     * Create a new role
+     * @return mixed
+     */
     public function create()
     {
 
@@ -64,7 +72,8 @@ class RolesController extends Controller
 
             $role->name = Request::get("name");
 
-            // fire saving action
+            // Fire saving action
+
             Action::fire("role.saving", $role);
 
             if (!$role->validate()) {
@@ -75,7 +84,8 @@ class RolesController extends Controller
 
             $role->savePermissions();
 
-            // fire saved action
+            // Fire saved action
+
             Action::fire("role.saved", $role);
 
             return Redirect::route("admin.roles.edit", array("id" => $role->id))->with("message", trans("roles::roles.role_created"));
@@ -83,9 +93,15 @@ class RolesController extends Controller
 
         $this->data["role"] = false;
         $this->data["plugins"] = Plugin::all();
+
         return View::make("roles::edit", $this->data);
     }
 
+    /**
+     * Edit role by id
+     * @param $id
+     * @return mixed
+     */
     public function edit($id)
     {
 
@@ -95,7 +111,8 @@ class RolesController extends Controller
 
             $role->name = Request::get("name");
 
-            // fire saving action
+            // Fire saving action
+
             Action::fire("role.saving", $role);
 
             if (!$role->validate()) {
@@ -106,7 +123,8 @@ class RolesController extends Controller
 
             $role->savePermissions();
 
-            // fire saved action
+            // Fire saved action
+
             Action::fire("role.saved", $role);
 
             return Redirect::back()->with("message", trans("roles::roles.role_updated"));
@@ -114,33 +132,37 @@ class RolesController extends Controller
 
         $this->data["role"] = $role;
         $this->data["role_permissions"] = $role->permissions->pluck("permission")->toArray();
-
         $this->data["plugins"] = Plugin::all();
 
         return View::make("roles::edit", $this->data);
     }
 
 
+    /**
+     * Delete role by id
+     * @return mixed
+     */
     public function delete()
     {
         $ids = Request::get("id");
-        if (!is_array($ids)) {
-            $ids = array($ids);
-        }
 
-        foreach ($ids as $ID) {
-            $role = Role::findOrFail($ID);
+        $ids = is_array($ids) ? $ids : [$ids];
 
-            // fire deleting action
+        foreach ($ids as $id) {
+
+            $role = Role::findOrFail($id);
+
+            // Fire deleting action
+
             Action::fire("role.saving", $role);
 
             $role->delete();
 
-            // fire deleted action
+            // Fire deleted action
+
             Action::fire("role.deleted", $role);
         }
+
         return Redirect::back()->with("message", trans("roles::roles.role_deleted"));
     }
-
-
 }
