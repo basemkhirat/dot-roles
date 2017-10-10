@@ -28,7 +28,7 @@ class Roles extends \Dot\Platform\Plugin
         Navigation::menu("sidebar", function ($menu) {
 
             if (Auth::user()->hasRole('superadmin')) {
-                $menu->item('permissions', trans("admin::common.permissions"), URL::to(ADMIN . '/roles'))->icon("fa-unlock-alt")->order(17);
+                $menu->item('permissions', trans("admin::common.permissions"), route("admin.roles.show"))->icon("fa-unlock-alt")->order(17);
             }
 
         });
