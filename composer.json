@@ -18,11 +18,5 @@
         "psr-4": {
             "Dot\\Roles\\": "src"
         }
-    },
-
-    "config": {
-        "preferred-install": "dist"
-    },
-
-    "minimum-stability" : "dev"
+    }
 }
