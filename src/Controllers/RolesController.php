@@ -34,7 +34,7 @@ class RolesController extends Controller
     {
 
         if (Request::isMethod("post")) {
-            if (Request::has("action")) {
+            if (Request::filled("action")) {
                 switch (Request::get("action")) {
                     case "delete":
                         return $this->delete();
@@ -44,11 +44,11 @@ class RolesController extends Controller
 
         $query = Role::orderBy("id", "ASC");
 
-        if (Request::has("q")) {
+        if (Request::filled("q")) {
             $query->search(Request::get("q"));
         }
 
-        if (Request::has("per_page")) {
+        if (Request::filled("per_page")) {
             $this->data["per_page"] = $per_page = Request::get("per_page");
         } else {
             $this->data["per_page"] = $per_page = 20;
