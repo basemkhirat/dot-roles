@@ -60,6 +60,34 @@ class RolesController extends Controller
     }
 
     /**
+     * Delete role by id
+     * @return mixed
+     */
+    public function delete()
+    {
+        $ids = Request::get("id");
+
+        $ids = is_array($ids) ? $ids : [$ids];
+
+        foreach ($ids as $id) {
+
+            $role = Role::findOrFail($id);
+
+            // Fire deleting action
+
+            Action::fire("role.saving", $role);
+
+            $role->delete();
+
+            // Fire deleted action
+
+            Action::fire("role.deleted", $role);
+        }
+
+        return Redirect::back()->with("message", trans("roles::roles.role_deleted"));
+    }
+
+    /**
      * Create a new role
      * @return mixed
      */
@@ -135,34 +163,5 @@ class RolesController extends Controller
         $this->data["plugins"] = Plugin::all();
 
         return View::make("roles::edit", $this->data);
-    }
-
-
-    /**
-     * Delete role by id
-     * @return mixed
-     */
-    public function delete()
-    {
-        $ids = Request::get("id");
-
-        $ids = is_array($ids) ? $ids : [$ids];
-
-        foreach ($ids as $id) {
-
-            $role = Role::findOrFail($id);
-
-            // Fire deleting action
-
-            Action::fire("role.saving", $role);
-
-            $role->delete();
-
-            // Fire deleted action
-
-            Action::fire("role.deleted", $role);
-        }
-
-        return Redirect::back()->with("message", trans("roles::roles.role_deleted"));
     }
 }

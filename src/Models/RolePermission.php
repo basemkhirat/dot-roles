@@ -8,7 +8,8 @@ use Dot\Platform\Model;
  * Class RolePermission
  * @package Dot\Roles\Models
  */
-class RolePermission extends Model {
+class RolePermission extends Model
+{
 
     /**
      * @var string

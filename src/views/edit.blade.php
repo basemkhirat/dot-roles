@@ -76,12 +76,13 @@
                                                 @foreach($plugin->getPermissions() as $slug)
 
                                                     <label class="checkbox">
-                                                        <input @if($role and in_array($plugin->getKey() . "." . $slug, $role_permissions))
-                                                               checked="checked"
-                                                               @endif
-                                                               type="checkbox" name="permissions[]"
-                                                               value="{{ $plugin->getKey() . "." . $slug }}"
-                                                               class="switcher permission-switcher switcher-sm">
+                                                        <input
+                                                            @if($role and in_array($plugin->getKey() . "." . $slug, $role_permissions))
+                                                            checked="checked"
+                                                            @endif
+                                                            type="checkbox" name="permissions[]"
+                                                            value="{{ $plugin->getKey() . "." . $slug }}"
+                                                            class="switcher permission-switcher switcher-sm">
 
                                                         &nbsp;
 

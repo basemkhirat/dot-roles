@@ -21,7 +21,7 @@ class Roles extends \Dot\Platform\Plugin
 
         // Roles for superadmins only
 
-        $this->gate->define("roles.manage", function($user){
+        $this->gate->define("roles.manage", function ($user) {
             return $user->hasRole("superadmin");
         });
 

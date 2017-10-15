@@ -1,7 +1,6 @@
 <?php
 
 use Dot\Roles\Models\Role;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
 class CreateRolesTable extends Migration

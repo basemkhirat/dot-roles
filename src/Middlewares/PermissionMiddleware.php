@@ -3,8 +3,8 @@
 namespace Dot\Roles\Middlewares;
 
 use Closure;
-use Gate;
 use Dot\Platform\Facades\Dot;
+use Gate;
 
 class PermissionMiddleware
 {
