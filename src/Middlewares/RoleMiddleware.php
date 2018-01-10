@@ -7,7 +7,7 @@ use Closure;
 class RoleMiddleware
 {
 
-    /**
+    /*
      * Handle an incoming request.
      *
      * @param  \Illuminate\Http\Request $request
