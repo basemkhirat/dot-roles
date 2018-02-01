@@ -22,7 +22,7 @@ class Roles extends \Dot\Platform\Plugin
         // Roles for superadmins only
         // Any user can not change their roles
 
-        $this->gate->define("roles.manage", function ($user, $profile) {
+        $this->gate->define("roles.manage", function ($user, $profile = false) {
             if ($profile) {
                 return $user->hasRole("superadmin") && $profile->id != $user->id;
             } else {
