@@ -5,7 +5,7 @@ use Illuminate\Database\Migrations\Migration;
 
 class CreateRolesTable extends Migration
 {
-    /*
+    /**
      * Run the migrations.
      *
      * @return void
@@ -26,7 +26,7 @@ class CreateRolesTable extends Migration
 
     }
 
-    /*
+    /**
      * Reverse the migrations.
      *
      * @return void

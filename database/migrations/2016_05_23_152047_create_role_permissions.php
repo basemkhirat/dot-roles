@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 
 class CreateRolePermissions extends Migration
 {
-    /*
+    /**
      * Run the migrations.
      *
      * @return void
@@ -17,7 +17,7 @@ class CreateRolePermissions extends Migration
         });
     }
 
-    /*
+    /**
      * Reverse the migrations.
      *
      * @return void

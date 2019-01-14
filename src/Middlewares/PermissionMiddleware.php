@@ -9,7 +9,7 @@ use Gate;
 class PermissionMiddleware
 {
 
-    /*
+    /**
      * Handle an incoming request.
      *
      * @param  \Illuminate\Http\Request $request

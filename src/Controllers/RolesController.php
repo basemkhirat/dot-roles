@@ -12,21 +12,21 @@ use Redirect;
 use Request;
 use View;
 
-/*
+/**
  * Class RolesController
  * @package Dot\Roles\Controllers
  */
 class RolesController extends Controller
 {
 
-    /*
+    /**
      * View payload
      * @var array
      */
     public $data = [];
 
 
-    /*
+    /**
      * Show all Roles
      * @return mixed
      */
@@ -59,7 +59,7 @@ class RolesController extends Controller
         return View::make("roles::show", $this->data);
     }
 
-    /*
+    /**
      * Delete role by id
      * @return mixed
      */
@@ -87,7 +87,7 @@ class RolesController extends Controller
         return Redirect::back()->with("message", trans("roles::roles.role_deleted"));
     }
 
-    /*
+    /**
      * Create a new role
      * @return mixed
      */
@@ -125,7 +125,7 @@ class RolesController extends Controller
         return View::make("roles::edit", $this->data);
     }
 
-    /*
+    /**
      * Edit role by id
      * @param $id
      * @return mixed

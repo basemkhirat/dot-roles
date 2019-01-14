@@ -20,22 +20,15 @@ class Roles extends \Dot\Platform\Plugin
         parent::boot();
 
         // Roles for superadmins only
-        // Any user can not change their roles
 
-        $this->gate->define("roles.manage", function ($user, $profile = false) {
-            if ($profile) {
-                return $user->hasRole("superadmin") && $profile->id != $user->id;
-            } else {
-                return $user->hasRole("superadmin");
-            }
+        $this->gate->define("roles.manage", function ($user) {
+            return $user->hasRole("superadmin");
         });
 
         Navigation::menu("sidebar", function ($menu) {
 
             if (Auth::user()->hasRole('superadmin')) {
-                $menu->item('permissions', trans("admin::common.permissions"), route("admin.roles.show"))
-                    ->icon("fa-unlock-alt")
-                    ->order(17);
+                $menu->item('permissions', trans("admin::common.permissions"), route("admin.roles.show"))->icon("fa-unlock-alt")->order(17);
             }
 
         });
