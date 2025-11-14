@@ -3,7 +3,7 @@
 namespace Dot\Roles\Models;
 
 use Dot\Platform\Model;
-use Request;
+use Illuminate\Support\Facades\Request;
 
 /**
  * Class Role

@@ -4,7 +4,7 @@ namespace Dot\Roles\Middlewares;
 
 use Closure;
 use Dot\Platform\Facades\Dot;
-use Gate;
+use Illuminate\Support\Facades\Gate;
 
 class PermissionMiddleware
 {

@@ -2,14 +2,14 @@
 
 namespace Dot\Roles\Controllers;
 
-use Action;
-use Auth;
+use Dot\Platform\Facades\Action;
+use Illuminate\Support\Facades\Auth;
 use Dot\Platform\Controller;
 use Dot\Platform\Facades\Plugin;
 use Dot\Roles\Models\Role;
-use Redirect;
-use Request;
-use View;
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Request;
+use Illuminate\Support\Facades\View;
 
 /**
  * Class RolesController

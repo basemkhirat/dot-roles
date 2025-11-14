@@ -2,8 +2,8 @@
 
 namespace Dot\Roles;
 
-use Auth;
-use Navigation;
+use Illuminate\Support\Facades\Auth;
+use Dot\Platform\Facades\Navigation;
 
 class Roles extends \Dot\Platform\Plugin
 {
