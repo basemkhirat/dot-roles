@@ -7,7 +7,6 @@ use Auth;
 use Dot\Platform\Controller;
 use Dot\Platform\Facades\Plugin;
 use Dot\Roles\Models\Role;
-use Module;
 use Redirect;
 use Request;
 use View;

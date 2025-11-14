@@ -4,7 +4,6 @@ namespace Dot\Roles;
 
 use Auth;
 use Navigation;
-use URL;
 
 class Roles extends \Dot\Platform\Plugin
 {
