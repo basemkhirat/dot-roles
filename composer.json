@@ -1,5 +1,6 @@
 {
     "name": "dot/roles",
+    "version": "0.2.6",
     "description": "The roles plugin of dot/platform",
     "keywords": [
         "framework",
